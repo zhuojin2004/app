@@ -124,7 +124,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="py-20 px-6 bg-black">
             <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
                 <div class="pr-8">
@@ -254,7 +254,7 @@
                 </div>
             </div>
         </section>
-        
+
         <footer id="preorder" class="py-20 px-6 text-center border-t border-gray-800">
             <div class="container mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">开启您的智能水族纪元</h2>
@@ -270,55 +270,35 @@
 
     <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/cn/index.js"></script>
     <script>
-        // 这个函数用于从您的后端安全地获取Coze API token
-        async function getSecureCozeToken() {
-            try {
-                // 默认请求本地运行的后端服务器。
-                // 部署时，请将 'http://localhost:3001/api/get-coze-token' 替换为您部署后的后端API地址。
-                const response = await fetch('http://localhost:3001/api/get-coze-token');
+      /*
+      * =================================================================================
+      * ⚠️ 重要安全警告 (IMPORTANT SECURITY WARNING) ⚠️
+      * =================================================================================
+      * 下方的 "token" 是您的私密API密钥，直接写在这里会暴露给所有访问者。
+      * 任何人都可以通过浏览器"查看网页源代码"轻易获取这个密钥。
+      *
+      * 风险 (Risks):
+      * 1. 密钥滥用 (Abuse): 他人可能使用您的密钥滥用Coze服务。
+      * 2. 产生意外费用 (Unexpected Costs): 如果该服务未来有计费，您可能需要承担滥用导致的费用。
+      *
+      * 建议：仅在个人测试、或完全了解并接受风险时，才使用此方法。
+      * 对于正式项目，请务必使用后端或无服务器函数 (Serverless Functions) 来保护密钥。
+      * =================================================================================
+      */
 
-                if (!response.ok) {
-                    throw new Error('无法从服务器获取认证信息。');
-                }
-                const data = await response.json();
-                return data.token; // 后端返回格式为 { "token": "..." }
-            } catch (error) {
-                console.error("获取Coze Token失败:", error);
-                // 可以在页面上给用户一个友好的错误提示
-                const chatContainer = document.getElementById('chat-container');
-                if (chatContainer) {
-                    chatContainer.innerHTML = '<p style="color:red; text-align:center; padding: 20px;">聊天服务加载失败，请联系管理员。</p>';
-                }
-                return null;
-            }
+      new CozeWebSDK.WebChatClient({
+        config: {
+          bot_id: '7539835946234478643',
+        },
+        componentProps: {
+          title: 'EcoMimic AI助手',
+        },
+        auth: {
+          type: 'token',
+          // 在这里直接使用您的API密钥
+          token: 'cztei_qv5ej6XEnoTndvLjL0SeUeR1QrVmO7NSuiwqZaDXh5QORib6GQH8GHfFO0TXxTweL',
         }
-
-        // 异步初始化WebChatClient
-        (async () => {
-            const initialToken = await getSecureCozeToken();
-
-            if (initialToken) {
-                new CozeWebSDK.WebChatClient({
-                    config: {
-                        bot_id: '7539835946234478643',
-                    },
-                    componentProps: {
-                        title: 'EcoMimic AI助手',
-                    },
-                    auth: {
-                        type: 'token',
-                        token: initialToken,
-                        // 当token过期时，SDK会自动调用此函数重新获取
-                        onRefreshToken: async function () {
-                            console.log("Token即将过期，正在刷新...");
-                            return await getSecureCozeToken();
-                        }
-                    }
-                });
-            } else {
-                console.error("聊天机器人初始化失败：无法获取有效的Token。");
-            }
-        })();
+      });
     </script>
-    </body>
+</body>
 </html>

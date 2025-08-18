@@ -270,21 +270,55 @@
 
     <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/cn/index.js"></script>
     <script>
-      new CozeWebSDK.WebChatClient({
-        config: {
-          bot_id: '7539835946234478643',
-        },
-        componentProps: {
-          title: 'Coze',
-        },
-        auth: {
-          type: 'token',
-          token: 'pat_GUbc6WnX8PxXCEyOJqz9Tu8JupyBeYxJYAdLYQlg1rYnAWKteEbe47DzxxPo4ruI', 
-          onRefreshToken: function () {
-            return 'pat_GUbc6WnX8PxXCEyOJqz9Tu8JupyBeYxJYAdLYQlg1rYnAWKteEbe47DzxxPo4ruI' 
-          }
+        // 这个函数用于从您的后端安全地获取Coze API token
+        async function getSecureCozeToken() {
+            try {
+                // 默认请求本地运行的后端服务器。
+                // 部署时，请将 'http://localhost:3001/api/get-coze-token' 替换为您部署后的后端API地址。
+                const response = await fetch('http://localhost:3001/api/get-coze-token');
+
+                if (!response.ok) {
+                    throw new Error('无法从服务器获取认证信息。');
+                }
+                const data = await response.json();
+                return data.token; // 后端返回格式为 { "token": "..." }
+            } catch (error) {
+                console.error("获取Coze Token失败:", error);
+                // 可以在页面上给用户一个友好的错误提示
+                const chatContainer = document.getElementById('chat-container');
+                if (chatContainer) {
+                    chatContainer.innerHTML = '<p style="color:red; text-align:center; padding: 20px;">聊天服务加载失败，请联系管理员。</p>';
+                }
+                return null;
+            }
         }
-      });
+
+        // 异步初始化WebChatClient
+        (async () => {
+            const initialToken = await getSecureCozeToken();
+
+            if (initialToken) {
+                new CozeWebSDK.WebChatClient({
+                    config: {
+                        bot_id: '7539835946234478643',
+                    },
+                    componentProps: {
+                        title: 'EcoMimic AI助手',
+                    },
+                    auth: {
+                        type: 'token',
+                        token: initialToken,
+                        // 当token过期时，SDK会自动调用此函数重新获取
+                        onRefreshToken: async function () {
+                            console.log("Token即将过期，正在刷新...");
+                            return await getSecureCozeToken();
+                        }
+                    }
+                });
+            } else {
+                console.error("聊天机器人初始化失败：无法获取有效的Token。");
+            }
+        })();
     </script>
-</body>
+    </body>
 </html>

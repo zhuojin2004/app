@@ -114,7 +114,7 @@
                     </div>
                     <div class="feature-card p-8 rounded-2xl text-center">
                         <div class="text-sky-400 mb-4">
-                             <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9M3 12a9 9 0 019-9m-9 9a9 9 0 009 9m-9-9h18" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9M3 12a9 9 0 019-9m-9 9a9 9 0 009 9m-9-9h18" /></svg>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-2">虚实同步与元宇宙</h3>
                         <p class="text-gray-400">构建数字孪生水族，通过AR/VR设备实现沉浸式远程陪伴与社交分享，连接虚拟与现实。</p>
@@ -198,7 +198,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="mt-20 grid md:grid-cols-2 gap-12 items-center">
+                <div class="mt-20 grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <h3 class="text-3xl font-bold text-white mb-4">仿生鱼：智能生命体</h3>
                         <p class="text-gray-400">仿生鱼是EcoMimic 3.0的灵魂。其内部集成了感知、决策、运动与生命支持系统，是一个集思考、行动与自我维持能力于一身的完整智能体。</p>
@@ -264,21 +264,8 @@
                 </div>
             </div>
         </footer>
-
     </main>
-<footer id="preorder" class="py-20 px-6 text-center border-t border-gray-800">
-            <div class="container mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">开启您的智能水族纪元</h2>
-                <p class="text-gray-400 max-w-xl mx-auto mb-8">立即预定 EcoMimic 3.0，成为首批体验者，享受专属优惠。我们将重新定义您与水下世界的连接方式。</p>
-                <a href="#" class="bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white font-bold py-4 px-10 rounded-lg transition text-xl shadow-lg shadow-sky-500/20">立即预定</a>
-                <div class="mt-16 text-gray-500">
-                    <p>&copy; 2025 EcoMimic. All Rights Reserved.</p>
-                    <p class="text-sm mt-2">一个充满激情的团队，致力于通过科技与创新重塑人与自然的和谐关系。</p>
-                </div>
-            </div>
-        </footer>
 
-    </main>
     <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/cn/index.js"></script>
     <script>
       new CozeWebSDK.WebChatClient({
@@ -290,13 +277,12 @@
         },
         auth: {
           type: 'token',
-          token: 'pat_********', // 注意：这里的token是敏感信息，请妥善保管
+          token: 'pat_********', // ⚠️ 注意：请将这里替换成您自己的真实Token
           onRefreshToken: function () {
-            return 'pat_********' // 注意：这里的token是敏感信息，请妥善保管
+            return 'pat_********' // ⚠️ 注意：请将这里也替换成您自己的真实Token
           }
         }
       });
     </script>
-    </body>
+</body>
 </html>
-
